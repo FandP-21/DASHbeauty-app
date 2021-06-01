@@ -1,20 +1,13 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/no_account_text.dart';
 import 'package:shop_app/components/socal_card.dart';
-import 'package:shop_app/screens/reseller/reseller_sign_in/sign_in_screen.dart';
-import '../../../constants.dart';
-import '../../../size_config.dart';
+import 'package:shop_app/screens/reseller/reseller_sign_up/reseller_signup.dart';
+import '../../../../constants.dart';
+import '../../../../size_config.dart';
+
 import 'sign_form.dart';
 
-class Body extends StatefulWidget {
-  @override
-  _BodyState createState() => _BodyState();
-}
-
-class _BodyState extends State<Body> {
-
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+class Body extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -60,25 +53,24 @@ class _BodyState extends State<Body> {
                   ],
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  Text(
-                    "Reseller? ",
-                    style: TextStyle(fontSize: getProportionateScreenWidth(16)),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "Become Reseller? ",
+                  style: TextStyle(fontSize: getProportionateScreenWidth(16)),
+                ),
+                GestureDetector(
+                  onTap: () => Navigator.pushNamed(context, ResellerSignUpScreen.routeName),
+                  child: Text(
+                    "Sign Up Here",
+                    style: TextStyle(
+                        fontSize: getProportionateScreenWidth(16),
+                        color: kPrimaryColor),
                   ),
-                  GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, ResellerSignInScreen.routeName),
-                    child: Text(
-                      "Login Here",
-                      style: TextStyle(
-                          fontSize: getProportionateScreenWidth(16),
-                          color: kPrimaryColor),
-                    ),
-                  ),
-                ],
-              ),
-                NoAccountText(),
+                ),
+              ],
+            ),
               ],
             ),
           ),

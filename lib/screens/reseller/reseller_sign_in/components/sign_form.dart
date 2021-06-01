@@ -1,17 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
+import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/helper/keyboard.dart';
-import 'package:shop_app/models/signin_model.dart';
-import 'package:shop_app/networking/Response.dart';
-import 'package:shop_app/networking/bloc/signin_bloc.dart';
 import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
-import 'package:shop_app/constants.dart' as Constants;
-import '../../../components/default_button.dart';
-import '../../../constants.dart';
-import '../../../size_config.dart';
+
+import '../../../../constants.dart';
+import '../../../../size_config.dart';
+
 
 class SignForm extends StatefulWidget {
   @override
@@ -23,14 +20,7 @@ class _SignFormState extends State<SignForm> {
   String email;
   String password;
   bool remember = false;
-  bool passwordVisible = true;
-  AutovalidateMode _autoValidate = AutovalidateMode.disabled;
-  SharedPreferences prefs;
-  TextEditingController _editControllerEmail = TextEditingController();
-  TextEditingController _editControllerPassword = TextEditingController();
   final List<String> errors = [];
-  final focus = FocusNode();
-  SignInBloc _bloc;
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -47,39 +37,9 @@ class _SignFormState extends State<SignForm> {
   }
 
   @override
-  void initState() {
-    super.initState();
-
-    _bloc = SignInBloc();
-    _bloc.signInStream.listen((event) {
-      setState(() {
-        switch (event.status) {
-          case Status.LOADING:
-            Constants.onLoading(context);
-            break;
-          case Status.COMPLETED:
-            Constants.stopLoader(context);
-            // navigateToTab(context);
-            break;
-          case Status.ERROR:
-            print(event.message);
-            Constants.stopLoader(context);
-            if (event.message == "Invalid Request: null") {
-              Constants.showMyDialog("Invalid Credentials.", context);
-            } else {
-              Constants.showMyDialog(event.message, context);
-            }
-            break;
-        }
-      });
-    });
-  }
-
-  @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
-      autovalidateMode: _autoValidate,
       child: Column(
         children: [
           buildEmailFormField(),
@@ -112,48 +72,24 @@ class _SignFormState extends State<SignForm> {
           FormError(errors: errors),
           SizedBox(height: getProportionateScreenHeight(20)),
           DefaultButton(
-            text: "Continue",
-            press: () => validateInputs(),
-            /*{
+            text: "Continue as Reseller",
+            press: () {
               if (_formKey.currentState.validate()) {
                 _formKey.currentState.save();
                 // if all are valid then go to success screen
                 KeyboardUtil.hideKeyboard(context);
                 Navigator.pushNamed(context, LoginSuccessScreen.routeName);
               }
-            },*/
+            },
           ),
         ],
       ),
     );
   }
 
-  void validateInputs() {
-    _formKey.currentState.save();
-    if (_formKey.currentState.validate() &&
-        email.isNotEmpty &&
-        password.isNotEmpty) {
-      var user = SignInRequest(
-          email: email,
-          password: password,
-          device_type: "1",
-          device_model: "RNE-L22",
-          device_token: "123abc#%456",
-          app_version: "1.0",
-          os_version: "7.0");
-      _bloc.loginUser(user);
-    } else {
-      setState(() {
-        _autoValidate = AutovalidateMode.always;
-      });
-    }
-  }
-
-
   TextFormField buildPasswordFormField() {
     return TextFormField(
-      focusNode: focus,
-      obscureText: passwordVisible,
+      obscureText: true,
       onSaved: (newValue) => password = newValue,
       onChanged: (value) {
         if (value.isNotEmpty) {
@@ -179,34 +115,13 @@ class _SignFormState extends State<SignForm> {
         // If  you are using latest version of flutter then lable text and hint text shown like this
         // if you r using flutter less then 1.20.* then maybe this is not working properly
         floatingLabelBehavior: FloatingLabelBehavior.always,
-        suffixIcon: passwordVisible
-            ? InkWell(
-                onTap: () {
-                  // Update the state i.e. toogle the state of passwordVisible variable
-                  setState(() {
-                    passwordVisible = !passwordVisible;
-                  });
-                },
-                child: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"))
-            : InkWell(
-                onTap: () {
-                  // Update the state i.e. toogle the state of passwordVisible variable
-                  setState(() {
-                    if (passwordVisible == false) passwordVisible = true;
-                  });
-                },
-                child: CustomSurffixIcon(
-                  svgIcon: "assets/icons/Lock.svg",
-                  svgIconColor: Colors.deepOrange,
-                ),
-              ),
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Lock.svg"),
       ),
     );
   }
 
   TextFormField buildEmailFormField() {
     return TextFormField(
-      controller: _editControllerEmail,
       keyboardType: TextInputType.emailAddress,
       onSaved: (newValue) => email = newValue,
       onChanged: (value) {
@@ -217,10 +132,6 @@ class _SignFormState extends State<SignForm> {
         }
         return null;
       },
-      onFieldSubmitted: (v) {
-        FocusScope.of(context).requestFocus(focus);
-      },
-      textInputAction: TextInputAction.next,
       validator: (value) {
         if (value.isEmpty) {
           addError(error: kEmailNullError);

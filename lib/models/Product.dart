@@ -31,6 +31,7 @@ List<Product> demoProducts = [
       "assets/images/ps4_console_white_2.png",
       "assets/images/ps4_console_white_3.png",
       "assets/images/ps4_console_white_4.png",
+
     ],
     colors: [
       Color(0xFFF6625E),
@@ -97,6 +98,95 @@ List<Product> demoProducts = [
     rating: 4.1,
     isFavourite: true,
   ),
+  Product(
+    id: 5,
+    images: [
+      "assets/images/ps4_console_white_1.png",
+      "assets/images/ps4_console_white_2.png",
+      "assets/images/ps4_console_white_3.png",
+      "assets/images/ps4_console_white_4.png",
+
+    ],
+    colors: [
+      Color(0xFFF6625E),
+      Color(0xFF836DB8),
+      Color(0xFFDECB9C),
+      Colors.white,
+    ],
+    title: "Wireless Controller for PS4™",
+    price: 64.99,
+    description: description,
+    rating: 4.8,
+    isFavourite: true,
+    isPopular: true,
+  ),
+  Product(
+    id: 6,
+    images: [
+      "assets/images/ps4_console_white_1.png",
+      "assets/images/ps4_console_white_2.png",
+      "assets/images/ps4_console_white_3.png",
+      "assets/images/ps4_console_white_4.png",
+
+    ],
+    colors: [
+      Color(0xFFF6625E),
+      Color(0xFF836DB8),
+      Color(0xFFDECB9C),
+      Colors.white,
+    ],
+    title: "Wireless Controller for PS4™",
+    price: 64.99,
+    description: description,
+    rating: 4.8,
+    isFavourite: true,
+    isPopular: true,
+  ),
+  Product(
+    id: 7,
+    images: [
+      "assets/images/ps4_console_white_1.png",
+      "assets/images/ps4_console_white_2.png",
+      "assets/images/ps4_console_white_3.png",
+      "assets/images/ps4_console_white_4.png",
+
+    ],
+    colors: [
+      Color(0xFFF6625E),
+      Color(0xFF836DB8),
+      Color(0xFFDECB9C),
+      Colors.white,
+    ],
+    title: "Wireless Controller for PS4™",
+    price: 64.99,
+    description: description,
+    rating: 4.8,
+    isFavourite: true,
+    isPopular: true,
+  ),
+  Product(
+    id: 8,
+    images: [
+      "assets/images/ps4_console_white_1.png",
+      "assets/images/ps4_console_white_2.png",
+      "assets/images/ps4_console_white_3.png",
+      "assets/images/ps4_console_white_4.png",
+
+    ],
+    colors: [
+      Color(0xFFF6625E),
+      Color(0xFF836DB8),
+      Color(0xFFDECB9C),
+      Colors.white,
+    ],
+    title: "Wireless Controller for PS4™",
+    price: 64.99,
+    description: description,
+    rating: 4.8,
+    isFavourite: true,
+    isPopular: true,
+  ),
+
 ];
 
 const String description =

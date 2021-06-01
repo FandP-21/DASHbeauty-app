@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/socal_card.dart';
 import 'package:shop_app/constants.dart';
-import 'package:shop_app/screens/reseller/reseller_sign_up/reseller_signup.dart';
 import 'package:shop_app/size_config.dart';
 
 import 'sign_up_form.dart';
@@ -19,14 +18,14 @@ class Body extends StatelessWidget {
             child: Column(
               children: [
                 SizedBox(height: SizeConfig.screenHeight * 0.04), // 4%
-                Text("Register Account", style: headingStyle),
+                Text("Register as Reseller", style: headingStyle),
                 Text(
                   "Complete your details or continue \nwith social media",
                   textAlign: TextAlign.center,
                 ),
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
-                SignUpForm(),
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
+                SizedBox(height: SizeConfig.screenHeight * 0.08),
+                ResellerSignUpForm(),
+                SizedBox(height: SizeConfig.screenHeight * 0.08),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -38,32 +37,9 @@ class Body extends StatelessWidget {
                       icon: "assets/icons/facebook-2.svg",
                       press: () {},
                     ),
-                    SocalCard(
-                      icon: "assets/icons/twitter.svg",
-                      press: () {},
-                    ),
                   ],
                 ),
                 SizedBox(height: getProportionateScreenHeight(20)),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    Text(
-                      "Become a Reseller? ",
-                      style: TextStyle(fontSize: getProportionateScreenWidth(16)),
-                    ),
-                    GestureDetector(
-                      onTap: () => Navigator.pushNamed(context, ResellerSignUpScreen.routeName),
-                      child: Text(
-                        "Register Here",
-                        style: TextStyle(
-                            fontSize: getProportionateScreenWidth(16),
-                            color: kPrimaryColor),
-                      ),
-                    ),
-                  ],
-                ),
-                SizedBox(height: SizeConfig.screenHeight * 0.04),
                 Text(
                   'By continuing your confirm that you agree \nwith our Term and Condition',
                   textAlign: TextAlign.center,

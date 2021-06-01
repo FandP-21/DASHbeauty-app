@@ -17,7 +17,7 @@ class Body extends StatelessWidget {
             icon: "assets/icons/User Icon.svg",
             press: () => {},
           ),
-          ProfileMenu(
+          /*ProfileMenu(
             text: "Notifications",
             icon: "assets/icons/Bell.svg",
             press: () {},
@@ -30,6 +30,11 @@ class Body extends StatelessWidget {
           ProfileMenu(
             text: "Help Center",
             icon: "assets/icons/Question mark.svg",
+            press: () {},
+          ),*/
+          ProfileMenu(
+            text: "Payments",
+            icon: "assets/icons/Log out.svg",
             press: () {},
           ),
           ProfileMenu(

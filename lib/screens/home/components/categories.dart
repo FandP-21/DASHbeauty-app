@@ -7,10 +7,10 @@ class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> categories = [
-      {"icon": "assets/icons/Flash Icon.svg", "text": "Flash Deal"},
-      {"icon": "assets/icons/Bill Icon.svg", "text": "Bill"},
-      {"icon": "assets/icons/Game Icon.svg", "text": "Game"},
-      {"icon": "assets/icons/Gift Icon.svg", "text": "Daily Gift"},
+      {"icon": "assets/icons/Flash Icon.svg", "text": "Category 1"},
+      {"icon": "assets/icons/Bill Icon.svg", "text": "Category 2"},
+      {"icon": "assets/icons/Game Icon.svg", "text": "Category 3"},
+      {"icon": "assets/icons/Gift Icon.svg", "text": "Category 4"},
       {"icon": "assets/icons/Discover.svg", "text": "More"},
     ];
     return Padding(
@@ -20,10 +20,12 @@ class Categories extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: List.generate(
           categories.length,
-          (index) => CategoryCard(
-            icon: categories[index]["icon"],
-            text: categories[index]["text"],
-            press: () {},
+          (index) => Expanded(
+            child: CategoryCard(
+              icon: categories[index]["icon"],
+              text: categories[index]["text"],
+              press: () {},
+            ),
           ),
         ),
       ),

@@ -6,10 +6,11 @@ import '../size_config.dart';
 class CustomSurffixIcon extends StatelessWidget {
   const CustomSurffixIcon({
     Key key,
-    @required this.svgIcon,
+    @required this.svgIcon, this.svgIconColor,
   }) : super(key: key);
 
   final String svgIcon;
+  final Color svgIconColor;
 
   @override
   Widget build(BuildContext context) {
@@ -22,6 +23,7 @@ class CustomSurffixIcon extends StatelessWidget {
       ),
       child: SvgPicture.asset(
         svgIcon,
+        color: svgIconColor,
         height: getProportionateScreenWidth(18),
       ),
     );
