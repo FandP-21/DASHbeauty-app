@@ -251,7 +251,7 @@ class _SignFormState extends State<SignForm> {
 
   Future<void> initPref() async {
 
-    await SharedPreferences.getInstance();
+    pref = await SharedPreferences.getInstance();
 
     if(pref.getString(Constants.EMAIL) != null){
       setState(() {

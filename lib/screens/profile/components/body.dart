@@ -22,6 +22,8 @@ class _BodyState extends State<Body> {
   void initState() {
     super.initState();
 
+    getPref();
+
     _bloc = SignInBloc();
     _bloc.logoutStream.listen((event) {
       setState(() {
@@ -178,7 +180,7 @@ class _BodyState extends State<Body> {
   }
   void logout() async {
     // prefs.remove(Constants.EMAIL);
-    // prefs.clear();
+    prefs.clear();
     _bloc.logout(prefs.getString(Constants.USERID));
 
 
@@ -186,6 +188,10 @@ class _BodyState extends State<Body> {
         context,
         MaterialPageRoute(builder: (context) => SignInScreen()),
             (route) => false);
+  }
+
+  Future<void> getPref() async {
+    prefs = await SharedPreferences.getInstance();
   }
 
 }
