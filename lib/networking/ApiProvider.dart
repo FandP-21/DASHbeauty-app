@@ -14,7 +14,7 @@ import 'CustomException.dart';
 class ApiProvider{
   final String _baseUrl = "http://192.168.2.21:3000";
 
-  Future<dynamic> patch(String url) async {
+  Future<dynamic> patch(String url,{var body}) async {
     var responseJson;
     try {
       var token = await getAuthToken();
@@ -22,8 +22,8 @@ class ApiProvider{
       print(token);
       final response = await http.patch(Uri.parse(_baseUrl + url), headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        "Authorization": "Bearer " + token,
-      });
+        //"Authorization": "Bearer " + token,
+      },body: body);
       print(response.request);
       responseJson = _response(response);
       print(responseJson);

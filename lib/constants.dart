@@ -65,9 +65,8 @@ const String PASSWORD = "password";
 const String FIRSTNAME = "firstName";
 const String LASTNAME = "lastName";
 const String STATUS = "status";
-const String LEGALENTITY = "legalEntity";
-const String EXPIRESIN = "expiresIn";
-const String MERCHANTID = "merchantId";
+const String SPLASHSHOWEN = "splashshowen";
+const String PROFILEPIC = "profilePic";
 
 
 const String NO_INTERNET = "No Internet";

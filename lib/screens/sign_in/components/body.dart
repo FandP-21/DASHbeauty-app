@@ -2,12 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/no_account_text.dart';
 import 'package:shop_app/components/socal_card.dart';
+import 'package:shop_app/constants.dart';
 import 'package:shop_app/screens/reseller/reseller_sign_in/sign_in_screen.dart';
-import '../../../constants.dart';
 import '../../../size_config.dart';
 import 'sign_form.dart';
 
 class Body extends StatefulWidget {
+
+
   @override
   _BodyState createState() => _BodyState();
 }

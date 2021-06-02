@@ -6,6 +6,7 @@ import '../../../size_config.dart';
 class Categories extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     List<Map<String, dynamic>> categories = [
       {"icon": "assets/icons/Flash Icon.svg", "text": "Category 1"},
       {"icon": "assets/icons/Bill Icon.svg", "text": "Category 2"},

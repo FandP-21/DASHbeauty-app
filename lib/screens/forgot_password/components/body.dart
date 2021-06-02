@@ -3,11 +3,23 @@ import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
 import 'package:shop_app/components/no_account_text.dart';
+import 'package:shop_app/networking/Response.dart';
+import 'package:shop_app/networking/bloc/signin_bloc.dart';
+import 'package:shop_app/screens/otp/otp_screen.dart';
 import 'package:shop_app/size_config.dart';
+import 'package:shop_app/constants.dart' as Constants;
+import 'package:fluttertoast/fluttertoast.dart';
+
 
 import '../../../constants.dart';
 
-class Body extends StatelessWidget {
+class Body extends StatefulWidget {
+  @override
+  _BodyState createState() => _BodyState();
+}
+
+class _BodyState extends State<Body> {
+
   @override
   Widget build(BuildContext context) {
     return SizedBox(
@@ -50,10 +62,46 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
   final _formKey = GlobalKey<FormState>();
   List<String> errors = [];
   String email;
+  AutovalidateMode _autoValidate = AutovalidateMode.disabled;
+  SignInBloc _bloc;
+
+
+  void initState() {
+
+    _bloc = SignInBloc();
+    _bloc.signInStream.listen((event) {
+      setState(() {
+        switch (event.status) {
+          case Status.LOADING:
+            Constants.onLoading(context);
+            break;
+          case Status.COMPLETED:
+            Constants.stopLoader(context);
+            Fluttertoast.showToast( msg: "We have sent a OTP to you email address.");
+            navigateToTab(context);
+            break;
+          case Status.ERROR:
+            print(event.message);
+            Constants.stopLoader(context);
+            if (event.message == "Invalid Request: null") {
+              Constants.showMyDialog("Invalid Credentials.", context);
+            } else {
+              Constants.showMyDialog(event.message, context);
+            }
+            break;
+        }
+      });
+    });
+
+    super.initState();
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Form(
       key: _formKey,
+      autovalidateMode: _autoValidate,
       child: Column(
         children: [
           TextFormField(
@@ -99,11 +147,7 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
           SizedBox(height: SizeConfig.screenHeight * 0.1),
           DefaultButton(
             text: "Continue",
-            press: () {
-              if (_formKey.currentState.validate()) {
-                // Do what you want to do
-              }
-            },
+            press: () => validateInputs(),
           ),
           SizedBox(height: SizeConfig.screenHeight * 0.1),
           NoAccountText(),
@@ -111,4 +155,28 @@ class _ForgotPassFormState extends State<ForgotPassForm> {
       ),
     );
   }
+
+  void validateInputs() {
+    if (_formKey.currentState.validate()) {
+      _formKey.currentState.save();
+
+      _bloc.forgetPassword(email);
+    } else {
+      setState(() {
+        _autoValidate = AutovalidateMode.always;
+      });
+    }
+  }
+
+  navigateToTab(BuildContext context) async {
+
+    // prefs.setBool(Constants.REMEMBER_ME, rememberMe);
+
+
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => OtpScreen(email)),(route) => false);
+  }
+
 }

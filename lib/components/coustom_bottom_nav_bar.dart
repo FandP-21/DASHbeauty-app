@@ -6,6 +6,7 @@ import 'package:shop_app/screens/profile/profile_screen.dart';
 
 import '../constants.dart';
 import '../enums.dart';
+import '../size_config.dart';
 
 class CustomBottomNavBar extends StatelessWidget {
   const CustomBottomNavBar({
@@ -17,6 +18,7 @@ class CustomBottomNavBar extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    SizeConfig().init(context);
     final Color inActiveIconColor = Color(0xFFB6B6B6);
     return Container(
       padding: EdgeInsets.symmetric(vertical: 14),

@@ -7,6 +7,7 @@ import 'package:shop_app/models/signin_model.dart';
 import 'package:shop_app/networking/Response.dart';
 import 'package:shop_app/networking/bloc/signin_bloc.dart';
 import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/constants.dart' as Constants;
 import '../../../components/default_button.dart';
@@ -14,6 +15,10 @@ import '../../../constants.dart';
 import '../../../size_config.dart';
 
 class SignForm extends StatefulWidget {
+
+
+
+
   @override
   _SignFormState createState() => _SignFormState();
 }
@@ -25,12 +30,12 @@ class _SignFormState extends State<SignForm> {
   bool remember = false;
   bool passwordVisible = true;
   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
-  SharedPreferences prefs;
   TextEditingController _editControllerEmail = TextEditingController();
   TextEditingController _editControllerPassword = TextEditingController();
   final List<String> errors = [];
   final focus = FocusNode();
   SignInBloc _bloc;
+  SharedPreferences pref;
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -59,7 +64,7 @@ class _SignFormState extends State<SignForm> {
             break;
           case Status.COMPLETED:
             Constants.stopLoader(context);
-            // navigateToTab(context);
+            navigateToTab(context);
             break;
           case Status.ERROR:
             print(event.message);
@@ -73,6 +78,8 @@ class _SignFormState extends State<SignForm> {
         }
       });
     });
+
+    initPref();
   }
 
   @override
@@ -83,9 +90,9 @@ class _SignFormState extends State<SignForm> {
       child: Column(
         children: [
           buildEmailFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30),
           buildPasswordFormField(),
-          SizedBox(height: getProportionateScreenHeight(30)),
+          SizedBox(height: 30),
           Row(
             children: [
               Checkbox(
@@ -110,7 +117,7 @@ class _SignFormState extends State<SignForm> {
             ],
           ),
           FormError(errors: errors),
-          SizedBox(height: getProportionateScreenHeight(20)),
+          SizedBox(height: 20),
           DefaultButton(
             text: "Continue",
             press: () => validateInputs(),
@@ -240,5 +247,29 @@ class _SignFormState extends State<SignForm> {
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),
     );
+  }
+
+  Future<void> initPref() async {
+
+    await SharedPreferences.getInstance();
+
+    if(pref.getString(Constants.EMAIL) != null){
+      setState(() {
+        // _password = prefs.getString(Constants.PASSWORD);
+        email = pref.getString(Constants.EMAIL);
+      });
+    }
+
+
+  }
+  navigateToTab(BuildContext context) async {
+
+    // prefs.setBool(Constants.REMEMBER_ME, rememberMe);
+
+
+    Navigator.pushAndRemoveUntil(
+        context,
+        MaterialPageRoute(
+            builder: (BuildContext context) => HomeScreen()),(route) => false);
   }
 }
