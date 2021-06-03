@@ -34,6 +34,7 @@ class _BodyState extends State<Body> {
           case Status.COMPLETED:
             Constants.stopLoader(context);
             _logoutResponseModel = event.data;
+            navigateToTab(context);
             break;
           case Status.ERROR:
             print(event.message);
@@ -182,6 +183,13 @@ class _BodyState extends State<Body> {
     // prefs.remove(Constants.EMAIL);
     prefs.clear();
     _bloc.logout(prefs.getString(Constants.USERID));
+  }
+
+  Future<void> getPref() async {
+    prefs = await SharedPreferences.getInstance();
+  }
+
+  void navigateToTab(BuildContext context) {
 
 
     Navigator.pushAndRemoveUntil(
@@ -190,8 +198,6 @@ class _BodyState extends State<Body> {
             (route) => false);
   }
 
-  Future<void> getPref() async {
-    prefs = await SharedPreferences.getInstance();
-  }
+
 
 }

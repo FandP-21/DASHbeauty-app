@@ -4,6 +4,7 @@ import 'package:shop_app/models/otp_model.dart';
 import 'package:shop_app/networking/Response.dart';
 import 'package:shop_app/networking/bloc/otp_bloc.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/screens/reset_password/reset_password.dart';
 import 'package:shop_app/size_config.dart';
 import 'package:shop_app/constants.dart' as Constants;
 import '../../../constants.dart';
@@ -224,12 +225,11 @@ class _OtpFormState extends State<OtpForm> {
   navigateToTab(BuildContext context) async {
 
     // prefs.setBool(Constants.REMEMBER_ME, rememberMe);
-
-
     Navigator.push(
         context,
         MaterialPageRoute(
             builder: (BuildContext context) => HomeScreen()));
+
   }
 
 }

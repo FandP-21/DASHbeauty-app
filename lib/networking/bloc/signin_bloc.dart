@@ -82,20 +82,6 @@ class SignInBloc {
     return null;
   }
 
-  forgetPassword(String email) async {
-    signInDataSink.add(Response.loading('login'));
-    try {
-      SignInResponseModel loginData = await _signInRepository.forgetPassword(email);
-      print(loginData);
-
-      signInDataSink.add(Response.completed(loginData));
-    } catch (e) {
-      signInDataSink.add(Response.error(e.toString()));
-      isLoggedIn = false;
-      print(e);
-    }
-    return null;
-  }
 
 
   dispose() {

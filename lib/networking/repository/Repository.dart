@@ -1,8 +1,10 @@
 import 'dart:convert';
 
+import 'package:shop_app/models/forgot_password_model.dart';
 import 'package:shop_app/models/logout_model.dart';
 import 'package:shop_app/models/otp_model.dart';
 import 'package:shop_app/models/resendOtp_model.dart';
+import 'package:shop_app/models/reset_password_model.dart';
 import 'package:shop_app/models/signin_model.dart';
 import 'package:shop_app/models/singup_model.dart';
 
@@ -12,11 +14,6 @@ class SignInRepository {
   ApiProvider _apiProvider = ApiProvider();
   Future<SignInResponseModel> loginUser(SignInRequest user) async {
     final response = await _apiProvider.post("/v1/auth/mobile-signin", body:jsonEncode(user));
-    return SignInResponseModel.fromJson(response);
-  }
-
-  Future<SignInResponseModel> forgetPassword(String email) async {
-    final response = await _apiProvider.post("/v1/auth/forget-password", body: jsonEncode({"email": email}));
     return SignInResponseModel.fromJson(response);
   }
 }
@@ -50,5 +47,19 @@ class LogoutRepository{
   }
 }
 
+class ResetPasswordRepository{
+  ApiProvider _apiProvider = ApiProvider();
+  Future<ResetPasswordModel> resetPassword(ResetPasswordRequest user, String otp) async {
+    final response = await _apiProvider.post("/v1/auth/reset-password/$otp", body: jsonEncode(user));
+    return ResetPasswordModel.fromJson(response);
+  }
+}
 
+class ForgetPasswordRepository{
+  ApiProvider _apiProvider = ApiProvider();
+  Future<ForgotPasswordModel> forgetPassword(ForgotPasswordRequest email) async {
+    final response = await _apiProvider.post("/v1/auth/forget-password", body: jsonEncode(email));
+    return ForgotPasswordModel.fromJson(response);
+  }
+}
 
