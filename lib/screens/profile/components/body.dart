@@ -5,6 +5,7 @@ import 'package:shop_app/models/logout_model.dart';
 import 'package:shop_app/networking/Response.dart';
 import 'package:shop_app/networking/bloc/signin_bloc.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
+import '../my_account_screen.dart';
 import 'profile_menu.dart';
 import 'profile_pic.dart';
 
@@ -60,7 +61,12 @@ class _BodyState extends State<Body> {
           ProfileMenu(
             text: "My Account",
             icon: "assets/icons/User Icon.svg",
-            press: () => {},
+            press: () => {
+            Navigator.push(
+            context,
+            MaterialPageRoute(
+            builder: (BuildContext context) => MyAccount()))
+            },
           ),
           /*ProfileMenu(
             text: "Notifications",

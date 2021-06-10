@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:shop_app/models/forgot_password_model.dart';
+import 'package:shop_app/models/get_profile_details_model.dart';
 import 'package:shop_app/models/logout_model.dart';
 import 'package:shop_app/models/otp_model.dart';
 import 'package:shop_app/models/resendOtp_model.dart';
@@ -60,6 +61,14 @@ class ForgetPasswordRepository{
   Future<ForgotPasswordModel> forgetPassword(ForgotPasswordRequest email) async {
     final response = await _apiProvider.post("/v1/auth/forget-password", body: jsonEncode(email));
     return ForgotPasswordModel.fromJson(response);
+  }
+}
+
+class GetProfileDetailsRepository{
+  ApiProvider _apiProvider = ApiProvider();
+  Future<GetProfileDetailsModel> getProfile() async {
+    final response = await _apiProvider.get("/v1/auth/profile");
+    return GetProfileDetailsModel.fromJson(response);
   }
 }
 

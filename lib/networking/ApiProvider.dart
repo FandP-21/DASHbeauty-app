@@ -13,7 +13,7 @@ import 'CustomException.dart';
 
 class ApiProvider{
   // final String _baseUrl = "http://192.168.2.21:3000";
-  final String _baseUrl = "https://d960d8b9b26d.ngrok.io";
+  final String _baseUrl = "http://35.183.182.55:3000";
 
   Future<dynamic> patch(String url,{var body}) async {
     var responseJson;
