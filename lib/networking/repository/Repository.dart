@@ -8,6 +8,7 @@ import 'package:shop_app/models/resendOtp_model.dart';
 import 'package:shop_app/models/reset_password_model.dart';
 import 'package:shop_app/models/signin_model.dart';
 import 'package:shop_app/models/singup_model.dart';
+import 'package:shop_app/models/update_profile_model.dart';
 
 import '../ApiProvider.dart';
 
@@ -70,5 +71,11 @@ class GetProfileDetailsRepository{
     final response = await _apiProvider.get("/v1/auth/profile");
     return GetProfileDetailsModel.fromJson(response);
   }
+
+  Future<UpdateProfileDetailsModel> updateProfile(UpdateProfileRequest updateProfile) async {
+    final response = await _apiProvider.put("/v1/auth/profile", body: jsonEncode(updateProfile));
+    return UpdateProfileDetailsModel.fromJson(response);
+  }
 }
+
 

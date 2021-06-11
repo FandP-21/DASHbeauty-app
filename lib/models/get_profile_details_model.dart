@@ -26,12 +26,12 @@ class GetProfileDetailsModel {
   dynamic storeId;
 
   factory GetProfileDetailsModel.fromJson(Map<String, dynamic> json) => GetProfileDetailsModel(
-    userId: json["userId"],
-    firstName: json["firstName"],
-    lastName: json["lastName"],
-    email: json["email"],
-    roleId: json["roleId"],
-    storeId: json["storeId"],
+    userId: json["userId"] == null ? null:json["userId"],
+    firstName: json["firstName"] == null ? null:json["firstName"],
+    lastName: json["lastName"] == null ? null: json["lastName"],
+    email: json["email"] == null ? null:json["email"],
+    roleId: json["roleId"] == null ? null:json["roleId"],
+    storeId: json["storeId"] == null ? null:json["storeId"],
   );
 
   Map<String, dynamic> toJson() => {

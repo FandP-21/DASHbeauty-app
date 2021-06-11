@@ -30,7 +30,7 @@ GetProfileDetailsModel _getProfileDetailsModel;
             Constants.onLoading(context);
             break;
           case Status.COMPLETED:
-            Constants.stopLoader(context);
+            //Constants.stopLoader(context);
             _getProfileDetailsModel = event.data;
             //navigateToTab(context);
             break;
@@ -64,7 +64,7 @@ GetProfileDetailsModel _getProfileDetailsModel;
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(height: SizeConfig.screenHeight * 0.04),
+                  SizedBox(height: SizeConfig.screenHeight * 0.08),
                   if (_getProfileDetailsModel != null)
                   TextFormField(
                     decoration: InputDecoration(
@@ -78,13 +78,12 @@ GetProfileDetailsModel _getProfileDetailsModel;
                           CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
                     ),
                   ),
-                  SizedBox(height: SizeConfig.screenHeight * 0.08),
-                  if (_getProfileDetailsModel != null && _getProfileDetailsModel.storeId != null)
+                 SizedBox(height: SizeConfig.screenHeight * 0.04),
                   TextFormField(
                     decoration: InputDecoration(
                       labelText: "Store-ID",
-                      hintText: _getProfileDetailsModel.storeId,
-                      enabled: false,
+                      hintText: _getProfileDetailsModel != null && _getProfileDetailsModel.storeId != null ?_getProfileDetailsModel.storeId : "",
+                      //enabled: false,
                       // If  you are using latest version of flutter then lable text and hint text shown like this
                       // if you r using flutter less then 1.20.* then maybe this is not working properly
                       floatingLabelBehavior: FloatingLabelBehavior.always,
