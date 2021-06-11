@@ -59,8 +59,8 @@ class GetProfileDetailsBloc {
       UpdateProfileDetailsModel loginData = await _getProfileDetailsRepository.updateProfile(updateProfile);
       print(loginData);
 
-      SharedPreferences prefs = await SharedPreferences.getInstance();
-      prefs.setString(Constants.AUTHTOKEN, loginData.token);
+      /*SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString(Constants.AUTHTOKEN, loginData.token);*/
       // isLoggedIn = true;
       //print(prefs.getString(Constants.FIRSTNAME));
 

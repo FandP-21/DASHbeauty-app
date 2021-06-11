@@ -73,7 +73,7 @@ class GetProfileDetailsRepository{
   }
 
   Future<UpdateProfileDetailsModel> updateProfile(UpdateProfileRequest updateProfile) async {
-    final response = await _apiProvider.put("/v1/auth/profile", body: jsonEncode(updateProfile));
+    final response = await _apiProvider.put("/v1/auth/profile", body: updateProfile);
     return UpdateProfileDetailsModel.fromJson(response);
   }
 }

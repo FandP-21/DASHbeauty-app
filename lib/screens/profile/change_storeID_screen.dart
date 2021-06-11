@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
@@ -24,6 +25,8 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
 
   GetProfileDetailsBloc _bloc;
+  SharedPreferences prefs;
+  UpdateProfileDetailsModel _updateProfileDetailsModel;
 
   void addError({String error}) {
     if (!errors.contains(error))
@@ -47,7 +50,7 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
 
     _bloc = GetProfileDetailsBloc();
 
-    _bloc.getProfileDetailsStream.listen((event) {
+    _bloc.updateProfileDetailsStream.listen((event) {
       setState(() {
         switch (event.status) {
           case Status.LOADING:
@@ -55,7 +58,7 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
             break;
           case Status.COMPLETED:
             Constants.stopLoader(context);
-
+            _updateProfileDetailsModel = event.data;
             Fluttertoast.showToast(msg: "Store-Id Updated, Happy Shopping");
             //navigateToTab(context);
             break;
@@ -72,6 +75,10 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
       });
     });
 
+    SharedPreferences.getInstance().then((value) => {
+      prefs = value,
+      value.setString(Constants.AUTHTOKEN, _updateProfileDetailsModel.token),
+    });
     // initPref();
   }
   @override
@@ -146,7 +153,9 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
     if (_formKey.currentState.validate() &&
         storeId.isNotEmpty) {
       var user = UpdateProfileRequest(
-          storeId: storeId
+          storeId: storeId,
+        firstName: "Jon",
+        lastName: "Doe",
       );
       _bloc.updateProfile(user);
     } else {
