@@ -36,7 +36,7 @@ class GetProfileDetailsBloc {
   // bool isLoggedIn = false;
 
   getProfile() async {
-    //  signUpDataSink.add(Response.loading('login'));
+    getProfileDetailsDataSink.add(Response.loading('get profile data'));
     try {
       GetProfileDetailsModel loginData = await _getProfileDetailsRepository.getProfile();
       print(loginData);
@@ -54,7 +54,7 @@ class GetProfileDetailsBloc {
   }
 
   updateProfile(UpdateProfileRequest updateProfile) async {
-    //  signUpDataSink.add(Response.loading('login'));
+    updateProfileDetailsDataSink.add(Response.loading('update profile'));
     try {
       UpdateProfileDetailsModel loginData = await _getProfileDetailsRepository.updateProfile(updateProfile);
       print(loginData);

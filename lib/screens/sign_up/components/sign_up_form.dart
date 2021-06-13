@@ -30,8 +30,6 @@ class _SignUpFormState extends State<SignUpForm> {
   final focus = FocusNode();
   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
 
-
-
   void addError({String error}) {
     if (!errors.contains(error))
       setState(() {
@@ -74,7 +72,6 @@ class _SignUpFormState extends State<SignUpForm> {
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

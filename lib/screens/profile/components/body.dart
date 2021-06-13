@@ -4,6 +4,7 @@ import 'package:shop_app/constants.dart' as Constants;
 import 'package:shop_app/models/logout_model.dart';
 import 'package:shop_app/networking/Response.dart';
 import 'package:shop_app/networking/bloc/signin_bloc.dart';
+import 'package:shop_app/screens/profile/change_password_screen.dart';
 import 'package:shop_app/screens/profile/change_storeID_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
 import '../my_account_screen.dart';
@@ -72,12 +73,14 @@ class _BodyState extends State<Body> {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangeStoreID()));
             },
           ),
-          /*ProfileMenu(
-            text: "Settings",
-            icon: "assets/icons/Settings.svg",
-            press: () {},
-          ),
           ProfileMenu(
+            text: "Change Password",
+            icon: "assets/icons/Settings.svg",
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangePassword()));
+            },
+          ),
+          /*ProfileMenu(
             text: "Help Center",
             icon: "assets/icons/Question mark.svg",
             press: () {},
@@ -153,8 +156,8 @@ class _BodyState extends State<Body> {
                             fontWeight: FontWeight.w600),
                       ),
                       onPressed: () {
-                        Navigator.of(context).pop();
                         logout();
+                        Navigator.of(context).pop();
                       },
                     ),
                   ),
@@ -186,8 +189,8 @@ class _BodyState extends State<Body> {
   }
   void logout() async {
     // prefs.remove(Constants.EMAIL);
-    prefs.clear();
     _bloc.logout(prefs.getString(Constants.USERID));
+    prefs.clear();
   }
 
   Future<void> getPref() async {

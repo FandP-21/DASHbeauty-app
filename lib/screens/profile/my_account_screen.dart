@@ -30,7 +30,7 @@ GetProfileDetailsModel _getProfileDetailsModel;
             Constants.onLoading(context);
             break;
           case Status.COMPLETED:
-            //Constants.stopLoader(context);
+            Constants.stopLoader(context);
             _getProfileDetailsModel = event.data;
             //navigateToTab(context);
             break;

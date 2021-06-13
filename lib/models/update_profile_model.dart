@@ -18,13 +18,13 @@ class UpdateProfileDetailsModel {
   String token;
 
   factory UpdateProfileDetailsModel.fromJson(Map<String, dynamic> json) => UpdateProfileDetailsModel(
-    date: Date.fromJson(json["date"]),
-    token: json["Token"],
+    date:json["date"] == null? null : Date.fromJson(json["date"]),
+    token: json["token"] == null ?null : json["token"],
   );
 
   Map<String, dynamic> toJson() => {
     "date": date.toJson(),
-    "Token": token,
+    "token": token,
   };
 }
 
@@ -77,9 +77,9 @@ class UpdateProfileRequest {
   String storeId;
 
   factory UpdateProfileRequest.fromJson(Map<String, dynamic> json) => UpdateProfileRequest(
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    storeId: json["store_id"],
+    firstName: json["first_name"] == null ? null : json["first_name"],
+    lastName: json["last_name"] == null ? null : json["last_name"],
+    storeId: json["store_id"] == null ? null : json["store_id"],
   );
 
   Map<String, dynamic> toJson() => {

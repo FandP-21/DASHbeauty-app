@@ -4,7 +4,6 @@ import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
-import 'package:shop_app/models/get_profile_details_model.dart';
 import 'package:shop_app/models/update_profile_model.dart';
 import 'package:shop_app/networking/Response.dart';
 import 'package:shop_app/networking/bloc/getProfileDetails_bloc.dart';
@@ -18,12 +17,12 @@ class ChangeStoreID extends StatefulWidget {
 }
 
 class _ChangeStoreIDState extends State<ChangeStoreID> {
+
   final _formKey = GlobalKey<FormState>();
   String storeId;
   final List<String> errors = [];
   final focus = FocusNode();
   AutovalidateMode _autoValidate = AutovalidateMode.disabled;
-
   GetProfileDetailsBloc _bloc;
   SharedPreferences prefs;
   UpdateProfileDetailsModel _updateProfileDetailsModel;
@@ -42,14 +41,10 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
       });
   }
 
-
-
   @override
   void initState() {
     super.initState();
-
     _bloc = GetProfileDetailsBloc();
-
     _bloc.updateProfileDetailsStream.listen((event) {
       setState(() {
         switch (event.status) {
@@ -59,6 +54,7 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
           case Status.COMPLETED:
             Constants.stopLoader(context);
             _updateProfileDetailsModel = event.data;
+            updatePref();
             Fluttertoast.showToast(msg: "Store-Id Updated, Happy Shopping");
             //navigateToTab(context);
             break;
@@ -75,12 +71,15 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
       });
     });
 
-    SharedPreferences.getInstance().then((value) => {
+  }
+
+  Future<void> updatePref() async {
+    await  SharedPreferences.getInstance().then((value) => {
       prefs = value,
       value.setString(Constants.AUTHTOKEN, _updateProfileDetailsModel.token),
     });
-    // initPref();
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -154,8 +153,8 @@ class _ChangeStoreIDState extends State<ChangeStoreID> {
         storeId.isNotEmpty) {
       var user = UpdateProfileRequest(
           storeId: storeId,
-        firstName: "Jon",
-        lastName: "Doe",
+          firstName: "Jon",
+          lastName: "Doe",
       );
       _bloc.updateProfile(user);
     } else {
