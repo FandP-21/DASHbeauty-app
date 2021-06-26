@@ -31,7 +31,7 @@ class PopularProducts extends StatelessWidget {
                   if (demoProducts[index].isPopular)
                     return Padding(
                       padding: EdgeInsets.only(left: getProportionateScreenWidth(10), right: getProportionateScreenWidth(10)),
-                      child: ProductCard(product: demoProducts[index]),
+                      //child: ProductCard(product: demoProducts[index]),
                     );
                   return SizedBox
                       .shrink(); // here by default width and height is 0

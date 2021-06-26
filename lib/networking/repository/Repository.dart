@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+import 'package:shop_app/models/ListProductModel.dart';
 import 'package:shop_app/models/forgot_password_model.dart';
 import 'package:shop_app/models/get_profile_details_model.dart';
 import 'package:shop_app/models/logout_model.dart';
@@ -75,6 +76,15 @@ class GetProfileDetailsRepository{
   Future<UpdateProfileDetailsModel> updateProfile(UpdateProfileRequest updateProfile) async {
     final response = await _apiProvider.put("/v1/auth/profile", body: updateProfile);
     return UpdateProfileDetailsModel.fromJson(response);
+  }
+}
+
+class ProductListRepository{
+  ApiProvider _apiProvider = ApiProvider();
+  Future<ListProductModel> getStoreProduct(ProductRequest productRequest) async {
+    final response = await _apiProvider.get("/v1/products/by_store?limit=${productRequest.limit}&"
+        "page_no=${productRequest.page_no}&search=${productRequest.search}");
+    return ListProductModel.fromJson(response);
   }
 }
 
