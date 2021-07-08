@@ -25,6 +25,7 @@ class _BodyState extends State<Body> {
     _bloc = ProductListBloc();
     _bloc.getStoreProduct(
         ProductRequest(limit: "$_limit", page_no: "$_pageNo", search: ""));
+
     _bloc.productListStream.listen((event) {
       setState(() {
         switch (event.status) {
@@ -34,7 +35,6 @@ class _BodyState extends State<Body> {
           case Status.COMPLETED:
             Constants.stopLoader(context);
             _listProductModel = event.data;
-            //navigateToTab(context);
             break;
           case Status.ERROR:
             print(event.message);
@@ -65,16 +65,13 @@ class _BodyState extends State<Body> {
             runSpacing: 40,
             alignment: WrapAlignment.spaceBetween,
             children: [
-
-             // SizedBox(height: getProportionateScreenWidth(10)),
               ...List.generate(
                 _listProductModel.data.length,
                     (index) {
                   if (_listProductModel.data[index].isActive)
                     return ProductCard(product: _listProductModel.data[index]);
 
-                  return SizedBox
-                      .shrink(); // here by default width and height is 0
+                  return SizedBox.shrink(); // here by default width and height is 0
                 },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
