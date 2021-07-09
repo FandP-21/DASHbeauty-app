@@ -242,7 +242,7 @@ class _SignUpFormState extends State<SignUpForm> {
         password.isNotEmpty) {
       var user = RegisterRequest(
           signupVia: "mobile",
-          roleId: "3",
+          roleId: 3,
           firstName: "Jon",
           lastName: "Doe",
           email: email,

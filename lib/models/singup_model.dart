@@ -24,11 +24,6 @@ class SignUpResponseModel {
   };
 }
 
-//
-// RegisterRequest registerRequestFromJson(String str) => RegisterRequest.fromJson(json.decode(str));
-//
-// String registerRequestToJson(RegisterRequest data) => json.encode(data.toJson());
-
 class RegisterRequest {
   RegisterRequest({
     this.signupVia,
@@ -48,7 +43,7 @@ class RegisterRequest {
   });
 
   String signupVia;
-  String roleId;
+  int roleId;
   String firstName;
   String lastName;
   String email;

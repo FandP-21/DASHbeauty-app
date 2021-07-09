@@ -24,7 +24,6 @@ class ApiProvider{
       print(token);
       final response = await http.patch(Uri.parse(_baseUrl + url), headers: {
         HttpHeaders.contentTypeHeader: "application/json",
-        //"Authorization": "Bearer " + token,
       },body: body);
       print(response.request);
       responseJson = _response(response);
@@ -51,7 +50,6 @@ class ApiProvider{
     }
     return responseJson;
   }
-
 
   Future<dynamic> post(String url, {var body}) async {
     var responseJson;
