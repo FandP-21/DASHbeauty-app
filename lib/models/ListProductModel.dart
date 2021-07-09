@@ -55,7 +55,7 @@ class Datum {
   DateTime createTime;
   DateTime updateTime;
   CategoryId categoryId;
-  List<dynamic> productImages;
+  List<ProductImage> productImages;
 
   factory Datum.fromJson(Map<String, dynamic> json) => Datum(
     id: json["id"] == null ? null :json["id"],
@@ -69,7 +69,7 @@ class Datum {
     createTime: json["createTime"] == null ? null :DateTime.parse(json["createTime"]),
     updateTime: json["updateTime"] == null ? null :DateTime.parse(json["updateTime"]),
     categoryId: json["categoryId"] == null ? null :CategoryId.fromJson(json["categoryId"]),
-    productImages: json["productImages"] == null ? null :List<dynamic>.from(json["productImages"].map((x) => x)),
+    productImages: json["productImages"] == null ? null :List<ProductImage>.from(json["productImages"].map((x) => ProductImage.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
@@ -84,7 +84,7 @@ class Datum {
     "createTime": createTime.toIso8601String(),
     "updateTime": updateTime.toIso8601String(),
     "categoryId": categoryId.toJson(),
-    "productImages": List<dynamic>.from(productImages.map((x) => x)),
+    "productImages": List<ProductImage>.from(productImages.map((x) => x)),
   };
 }
 
@@ -107,6 +107,27 @@ class CategoryId {
     "name": name,
   };
 }
+
+class ProductImage {
+  ProductImage({
+    this.id,
+    this.image,
+  });
+
+  int id;
+  String image;
+
+  factory ProductImage.fromJson(Map<String, dynamic> json) => ProductImage(
+    id: json["id"],
+    image: json["image"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "id": id,
+    "image": image,
+  };
+}
+
 
 class ProductRequest {
   String limit = "10";

@@ -31,18 +31,21 @@ class ProductCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            AspectRatio(
-              aspectRatio: 1.02,
-              child: Container(
-                padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-                decoration: BoxDecoration(
-                  color: kSecondaryColor.withOpacity(0.1),
-                  borderRadius: BorderRadius.circular(15),
-                ),
-                child: Hero(
-                  tag: product.id.toString(),
-                    child: Icon(Icons.not_interested)
-                  //child: Image.asset(product.productImages[0]),
+            Expanded(
+              child: AspectRatio(
+                aspectRatio: 1.02,
+                child: Container(
+                  padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+                  decoration: BoxDecoration(
+                    color: kSecondaryColor.withOpacity(0.1),
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  child: Hero(
+                    tag: product.id.toString(),
+                    child:  product.productImages.isEmpty?
+                     Icon(Icons.not_interested) :
+                     Image.network(product.productImages[0].image),
+                  ),
                 ),
               ),
             ),
