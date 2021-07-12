@@ -143,6 +143,23 @@ class ApiProvider{
     return responseJson;
   }
 
+  Future<dynamic> delete(String url) async {
+    var responseJson;
+    try {
+      var token = await getAuthToken();
+      print(token);
+      final response = await http.delete(Uri.parse(_baseUrl + url), headers: {
+        HttpHeaders.contentTypeHeader: "application/json",
+        "Authorization": "Bearer " + token,
+      });
+      responseJson = _response(response);
+    } on SocketException {
+      throw NoInternetException(Constants.NO_INTERNET);
+    }
+    return responseJson;
+  }
+
+
   Future<String> getAuthToken() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     var token = prefs.getString(Constants.AUTHTOKEN);

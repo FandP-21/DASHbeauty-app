@@ -60,7 +60,8 @@ class _CategoriesState extends State<Categories> {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          ...List.generate(
+          if(_categoryResponseModel!=null)
+            ...List.generate(
             _categoryResponseModel.data.length,
                 (index) {
               if (_categoryResponseModel.data[index].isActive)
