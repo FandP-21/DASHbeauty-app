@@ -16,14 +16,21 @@ class SplashContent extends StatelessWidget {
     return Column(
       children: <Widget>[
         Spacer(),
-        Text(
-          "TOKOTO",
-          style: TextStyle(
-            fontSize: getProportionateScreenWidth(36),
-            color: kPrimaryColor,
-            fontWeight: FontWeight.bold,
-          ),
+        Row(
+          children: [
+            Image.asset(
+              "assets/logo/logo_design_transparent.png",
+              width: getProportionateScreenWidth(250),
+            ),
+            Image.asset(
+              "assets/logo/logo_beauty_transparent.png",
+              color: kPrimaryColor,
+              width: getProportionateScreenWidth(250),
+            ),
+          ],
         ),
+        //fontSize: getProportionateScreenWidth(36),
+        SizedBox(height: 10,),
         Text(
           text,
           textAlign: TextAlign.center,

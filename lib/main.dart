@@ -33,7 +33,7 @@ class _MyAppState extends State<MyApp> {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: theme(),
-      home: widget.splash == true ? widget.token == null ? SignInScreen() : HomeScreen(): SplashScreen() ,
+      home: widget.splash == true ?  SplashScreen():widget.token == null ? SignInScreen() : HomeScreen() ,
       // We use routeName so that we dont need to remember the name
       routes: routes,
     );

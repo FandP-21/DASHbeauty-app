@@ -67,15 +67,19 @@ class _AllProductsState extends State<AllProducts> {
               }),
         ),
         SizedBox(height: getProportionateScreenWidth(20)),
-        GridView.count(
-          shrinkWrap: true,
-          crossAxisCount: 2,
-          physics: ScrollPhysics(),
-          children: [
-            if(_listProductModel!=null && _listProductModel.data != null)
-            for (Datum data in _listProductModel.data)
-              if (data.isActive) ProductCard(product: data)
-          ],
+        Padding(
+          padding:
+          EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+          child: GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            physics: ScrollPhysics(),
+            children: [
+              if(_listProductModel!=null && _listProductModel.data != null)
+              for (Datum data in _listProductModel.data)
+                if (data.isActive) ProductCard(product: data)
+            ],
+          ),
         ),
 
         // SizedBox(height: getProportionateScreenWidth(10)),

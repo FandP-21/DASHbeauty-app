@@ -16,12 +16,12 @@ class _BodyState extends State<Body> {
   int currentPage = 0;
   List<Map<String, String>> splashData = [
     {
-      "text": "Welcome to Tokoto, Let’s shop!",
+      "text": "Welcome to DASHbeauty, Let’s shop!",
       "image": "assets/images/splash_1.png"
     },
     {
       "text":
-          "We help people conect with store \naround United State of America",
+      "We help people conect with store \naround Canada",
       "image": "assets/images/splash_2.png"
     },
     {
@@ -29,56 +29,56 @@ class _BodyState extends State<Body> {
       "image": "assets/images/splash_3.png"
     },
   ];
+
+  Widget continueButton = FlatButton(
+    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+    child: Text(
+      "Continue",
+      style: TextStyle(
+        fontSize: getProportionateScreenWidth(18),
+        color: Colors.white,
+      ),
+    ),
+  );
+
+
+  void buttonState() async {
+
+    await new Future.delayed(const Duration(seconds: 10));
+    continueButton;
+
+  }
+@override
+  void initState() {
+    // TODO: implement initState
+    buttonState();
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: SizedBox(
-        width: double.infinity,
-        child: Column(
-          children: <Widget>[
-            Expanded(
-              flex: 3,
-              child: PageView.builder(
-                onPageChanged: (value) {
-                  setState(() {
-                    currentPage = value;
-                  });
-                },
-                itemCount: splashData.length,
-                itemBuilder: (context, index) => SplashContent(
-                  image: splashData[index]["image"],
-                  text: splashData[index]['text'],
-                ),
+      child: Center(
+        child: SizedBox(
+          width: double.infinity,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: <Widget>[
+              Spacer(),
+              Image.asset(
+                "assets/logo/logo_design_transparent.png",
+                width: getProportionateScreenWidth(250),
               ),
-            ),
-            Expanded(
-              flex: 2,
-              child: Padding(
-                padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
-                child: Column(
-                  children: <Widget>[
-                    Spacer(),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: List.generate(
-                        splashData.length,
-                        (index) => buildDot(index: index),
-                      ),
-                    ),
-                    Spacer(flex: 3),
-                    DefaultButton(
-                      text: "Continue",
-                      press: () {
-                        Navigator.pushNamed(context, SignInScreen.routeName);
-                      },
-                    ),
-                    Spacer(),
-                  ],
-                ),
-              ),
-            ),
-          ],
+              Spacer(),
+
+              InkWell(onTap: () {
+                Navigator.pushNamed(context, SignInScreen.routeName);
+              }, child: continueButton),
+              SizedBox(height: 40,),
+
+            ],
+          ),
         ),
       ),
     );

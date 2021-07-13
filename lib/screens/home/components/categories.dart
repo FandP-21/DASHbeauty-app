@@ -15,7 +15,8 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   HomeBloc _bloc;
   CategoryResponseModel _categoryResponseModel;
-  int _limit = 10, _pageNo = 1;
+  int _limit = 10,
+      _pageNo = 1;
 
   @override
   void initState() {
@@ -47,7 +48,6 @@ class _CategoriesState extends State<Categories> {
         }
       });
     });
-
   }
 
   @override
@@ -56,11 +56,23 @@ class _CategoriesState extends State<Categories> {
 
     return Padding(
       padding: EdgeInsets.all(getProportionateScreenWidth(20)),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          ...List.generate(
+      child: Container(
+        height: 200,
+        child:
+          ListView.builder(
+              shrinkWrap: true,
+              scrollDirection: Axis.horizontal,
+              itemCount: _categoryResponseModel.data.length,
+              itemBuilder:  (BuildContext context,
+              int index) {
+                if (_categoryResponseModel.data[index].isActive)
+                  return  CategoryCard(categoryData: _categoryResponseModel.data[index]);
+
+                return SizedBox.shrink();
+              },
+             ),
+          /*...List.generate(
+
             _categoryResponseModel.data.length,
                 (index) {
               if (_categoryResponseModel.data[index].isActive)
@@ -68,9 +80,10 @@ class _CategoriesState extends State<Categories> {
 
               return SizedBox.shrink(); // here by default width and height is 0
             },
-          ),
-          SizedBox(width: getProportionateScreenWidth(20)),
-        ],
+
+          ),*/
+          //SizedBox(width: getProportionateScreenWidth(20)),
+
       ),
     );
   }

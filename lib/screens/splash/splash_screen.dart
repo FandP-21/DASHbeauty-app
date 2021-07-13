@@ -28,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen> {
     // You have to call it on your starting screen
     SizeConfig().init(context);
     return Scaffold(
+      backgroundColor: Colors.black,
       body: Body(),
     );
   }
