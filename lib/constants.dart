@@ -54,6 +54,22 @@ OutlineInputBorder outlineInputBorder() {
   );
 }
 
+//order
+const String GET_ORDER_BY_UESR = "/v1/orders/user-orders/"; //order by admin with userId
+const String GET_ORDERS = "/v1/orders"; //order by admin
+
+
+//favourite
+const String GET_FAVOURITE = "/v1/Favourite";//get, post and delete
+
+//address
+const String GET_ADDRESS = "/v1/user-address";//get all address by user
+
+//promo
+const String GET_PROMO = "/v1/promo";//get promo codes
+
+//super cart
+const String ADMIN_CART = "/v1/cart";//create
 
 //MARK: - SHARED PREFRENCE KEY
 const String AUTHTOKEN = "auth_token";

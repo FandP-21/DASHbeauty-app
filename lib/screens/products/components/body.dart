@@ -67,16 +67,18 @@ class _BodyState extends State<Body> {
             alignment: WrapAlignment.spaceBetween,
             children: [
               // SizedBox(height: getProportionateScreenWidth(10)),
-              ...List.generate(
-                _listProductModel.data.length,
-                (index) {
-                  if (_listProductModel.data[index].isActive)
-                    return ProductCard(product: _listProductModel.data[index]);
+              if (_listProductModel != null)
+                ...List.generate(
+                  _listProductModel.data.length,
+                  (index) {
+                    if (_listProductModel.data[index].isActive)
+                      return ProductCard(
+                          product: _listProductModel.data[index]);
 
-                  return SizedBox
-                      .shrink(); // here by default width and height is 0
-                },
-              ),
+                    return SizedBox
+                        .shrink(); // here by default width and height is 0
+                  },
+                ),
               SizedBox(width: getProportionateScreenWidth(20)),
             ],
           ),
