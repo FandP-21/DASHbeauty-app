@@ -107,10 +107,10 @@ class GetProfileDetailsRepository {
 class ProductListRepository {
   ApiProvider _apiProvider = ApiProvider();
 
-  Future<ListProductModel> getStoreProduct(
+  Future<ListProductModel> getProduct(
       ProductRequest productRequest) async {
     final response = await _apiProvider.get(
-        "/v1/products/by_store?limit=${productRequest.limit}&"
+        "/v1/products?limit=${productRequest.limit}&"
         "page_no=${productRequest.page_no}&search=${productRequest.search}");
     return ListProductModel.fromJson(response);
   }

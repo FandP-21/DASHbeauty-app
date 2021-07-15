@@ -27,10 +27,10 @@ class ProductListBloc {
 
   // bool isLoggedIn = false;
 
-  getStoreProduct(ProductRequest productRequest) async {
+  getProduct(ProductRequest productRequest) async {
     productListDataSink.add(Response.loading('get profile data'));
     try {
-      ListProductModel loginData = await _productListRepository.getStoreProduct(productRequest);
+      ListProductModel loginData = await _productListRepository.getProduct(productRequest);
       print(loginData);
 
       // isLoggedIn = true;

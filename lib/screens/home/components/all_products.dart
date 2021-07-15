@@ -25,7 +25,7 @@ class _AllProductsState extends State<AllProducts> {
     super.initState();
 
     _bloc = ProductListBloc();
-    _bloc.getStoreProduct(
+    _bloc.getProduct(
         ProductRequest(limit: "$_limit", page_no: "$_pageNo", search: ""));
     _bloc.productListStream.listen((event) {
       setState(() {
@@ -71,13 +71,19 @@ class _AllProductsState extends State<AllProducts> {
           padding:
           EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
           child: GridView.count(
+            childAspectRatio: 0.82,
             shrinkWrap: true,
             crossAxisCount: 2,
+            scrollDirection: Axis.vertical,
+            mainAxisSpacing: 30,
             physics: ScrollPhysics(),
             children: [
               if(_listProductModel!=null && _listProductModel.data != null)
               for (Datum data in _listProductModel.data)
-                if (data.isActive) ProductCard(product: data)
+                if (data.isActive) Padding(
+                  padding: EdgeInsets.only(right: 10,left: 10),
+                  child: ProductCard(product: data),
+                )
             ],
           ),
         ),

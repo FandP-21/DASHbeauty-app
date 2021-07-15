@@ -83,7 +83,6 @@ class _CategoryProductScreenState extends State<CategoryProductScreen> {
                   shrinkWrap: true,
                   crossAxisCount: 2,
                   scrollDirection: Axis.vertical,
-
                   mainAxisSpacing: 30,
                   physics: ScrollPhysics(),
                   children: [

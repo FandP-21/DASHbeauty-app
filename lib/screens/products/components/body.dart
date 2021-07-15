@@ -24,7 +24,7 @@ class _BodyState extends State<Body> {
     super.initState();
 
     _bloc = ProductListBloc();
-    _bloc.getStoreProduct(
+    _bloc.getProduct(
         ProductRequest(limit: "$_limit", page_no: "$_pageNo", search: ""));
     _bloc.productListStream.listen((event) {
       setState(() {
@@ -60,27 +60,25 @@ class _BodyState extends State<Body> {
           SizedBox(height: getProportionateScreenHeight(20)),
           ProductsHeader(),
           SizedBox(height: getProportionateScreenHeight(40)),
-          Wrap(
-            //spacing: 40,
-            spacing: 30,
-            runSpacing: 40,
-            alignment: WrapAlignment.spaceBetween,
-            children: [
-              // SizedBox(height: getProportionateScreenWidth(10)),
-              if (_listProductModel != null)
-                ...List.generate(
-                  _listProductModel.data.length,
-                  (index) {
-                    if (_listProductModel.data[index].isActive)
-                      return ProductCard(
-                          product: _listProductModel.data[index]);
-
-                    return SizedBox
-                        .shrink(); // here by default width and height is 0
-                  },
-                ),
-              SizedBox(width: getProportionateScreenWidth(20)),
-            ],
+          Padding(
+            padding:
+            EdgeInsets.symmetric(horizontal: getProportionateScreenWidth(20)),
+            child: GridView.count(
+              childAspectRatio: 0.82,
+              shrinkWrap: true,
+              crossAxisCount: 2,
+              scrollDirection: Axis.vertical,
+              mainAxisSpacing: 30,
+              physics: ScrollPhysics(),
+              children: [
+                if(_listProductModel!=null && _listProductModel.data != null)
+                  for (Datum data in _listProductModel.data)
+                    if (data.isActive) Padding(
+                      padding: EdgeInsets.only(right: 10,left: 10),
+                      child: ProductCard(product: data),
+                    )
+              ],
+            ),
           ),
         ],
       ),

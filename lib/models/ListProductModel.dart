@@ -130,8 +130,8 @@ class ProductImage {
 
 
 class ProductRequest {
-  String limit = "10";
-  String page_no = "1";
+  String limit = "";
+  String page_no = "";
   String search = "";
 
   ProductRequest({this.limit, this.page_no, this.search});
