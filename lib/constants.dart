@@ -60,7 +60,7 @@ const String GET_ORDERS = "/v1/orders"; //order by admin
 
 
 //favourite
-const String GET_FAVOURITE = "/v1/Favourite";//get, post and delete
+const String GET_FAVOURITE = "/v1/favourite";//get, post and delete
 
 //address
 const String GET_ADDRESS = "/v1/user-address";//get all address by user

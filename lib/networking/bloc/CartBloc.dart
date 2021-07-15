@@ -3,6 +3,8 @@ import 'dart:async';
 import 'package:shop_app/models/AllUserResponseModel.dart';
 import 'package:shop_app/models/CommonRequest.dart';
 import 'package:shop_app/models/UserResponseModel.dart';
+import 'package:shop_app/models/cart_model.dart';
+import 'package:shop_app/models/list_cart_model.dart';
 import 'package:shop_app/networking/repository/Repository.dart';
 
 import '../Response.dart';
@@ -13,39 +15,39 @@ class CartBloc{
 
   //get cart data
   StreamController _cartBlocController;
-  StreamSink<Response<AllUserResponseModel>> get cartDataSink =>
+  StreamSink<Response<ListCartItemModel>> get cartDataSink =>
       _cartBlocController.sink;
-  Stream<Response<AllUserResponseModel>> get cartStream =>
+  Stream<Response<ListCartItemModel>> get cartStream =>
       _cartBlocController.stream;
 
 
   //add to cart
   StreamController _cartCreateController;
-  StreamSink<Response<UserResponseModel>> get addCartDataSink =>
+  StreamSink<Response<CartModel>> get addCartDataSink =>
       _cartCreateController.sink;
-  Stream<Response<UserResponseModel>> get addCartStream =>
+  Stream<Response<CartModel>> get addCartStream =>
       _cartCreateController.stream;
 
 
   //delete cart
   StreamController _deleteCartController;
-  StreamSink<Response<UserResponseModel>> get deleteCartSink =>
+  StreamSink<Response<CartModel>> get deleteCartSink =>
       _deleteCartController.sink;
-  Stream<Response<UserResponseModel>> get deleteCartStream =>
+  Stream<Response<CartModel>> get deleteCartStream =>
       _deleteCartController.stream;
 
   //update user
   StreamController _updateCartController;
-  StreamSink<Response<UserResponseModel>> get updateCartDataSink =>
+  StreamSink<Response<CartModel>> get updateCartDataSink =>
       _updateCartController.sink;
-  Stream<Response<UserResponseModel>> get updateCartStream =>
+  Stream<Response<CartModel>> get updateCartStream =>
       _updateCartController.stream;
 
   CartBloc() {
-    _cartBlocController = StreamController<Response<AllUserResponseModel>>();
-    _cartCreateController = StreamController<Response<UserResponseModel>>();
-    _deleteCartController = StreamController<Response<UserResponseModel>>();
-    _updateCartController = StreamController<Response<UserResponseModel>>();
+    _cartBlocController = StreamController<Response<ListCartItemModel>>();
+    _cartCreateController = StreamController<Response<CartModel>>();
+    _deleteCartController = StreamController<Response<CartModel>>();
+    _updateCartController = StreamController<Response<CartModel>>();
 
     _cartRepository = CartRepository();
   }
@@ -53,7 +55,7 @@ class CartBloc{
   getCart(CommonRequest commonRequest) async {
     cartDataSink.add(Response.loading('get cart'));
     try {
-      AllUserResponseModel ordersResponseData =
+      ListCartItemModel ordersResponseData =
       await _cartRepository.getCart(commonRequest);
       print(ordersResponseData);
 
@@ -69,7 +71,7 @@ class CartBloc{
 
     addCartDataSink.add(Response.loading('add to cart'));
     try {
-      UserResponseModel ordersResponseData =
+      CartModel ordersResponseData =
       await _cartRepository.addToCart(request);
       print(ordersResponseData);
 
@@ -87,7 +89,7 @@ class CartBloc{
 
     deleteCartSink.add(Response.loading('delete cart'));
     try {
-      UserResponseModel ordersResponseData =
+      CartModel ordersResponseData =
       await _cartRepository.deleteCart(userId);
       print(ordersResponseData);
 
@@ -104,7 +106,7 @@ class CartBloc{
 
     updateCartDataSink.add(Response.loading('Update Product'));
     try {
-      UserResponseModel userResponseData =
+      CartModel userResponseData =
       await _cartRepository.updateCart(id, request);
       print(userResponseData);
 

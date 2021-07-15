@@ -10,6 +10,7 @@ import 'package:shop_app/screens/forgot_password/forgot_password_screen.dart';
 import 'package:shop_app/screens/home/home_screen.dart';
 import 'package:shop_app/screens/login_success/login_success_screen.dart';
 import 'package:shop_app/constants.dart' as Constants;
+import 'package:shop_app/screens/reseller/reseller_order_screen.dart';
 import '../../../components/default_button.dart';
 import '../../../constants.dart';
 import '../../../size_config.dart';
@@ -270,6 +271,6 @@ class _SignFormState extends State<SignForm> {
     Navigator.pushAndRemoveUntil(
         context,
         MaterialPageRoute(
-            builder: (BuildContext context) => HomeScreen()),(route) => false);
+            builder: (BuildContext context) => ResellerOrderScreen()),(route) => false);
   }
 }

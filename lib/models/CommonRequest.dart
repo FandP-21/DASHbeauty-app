@@ -23,12 +23,34 @@ class CommonRequest{
   }
 }
 
-class CartRequest{
-  String productId = "";
-  String quantity = "1";
+/*
+CartRequest cartRequestFromJson(String str) => CartRequest.fromJson(json.decode(str));
 
-  CartRequest(this.productId, this.quantity);
+String cartRequestToJson(CartRequest data) => json.encode(data.toJson());
+*/
+
+class CartRequest {
+
+  String productId;
+  String quantity;
+
+  CartRequest({
+    this.productId,
+    this.quantity,
+  });
+
+
+  factory CartRequest.fromJson(Map<String, dynamic> json) => CartRequest(
+    productId: json["product_id"],
+    quantity: json["quantity"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "product_id": productId,
+    "quantity": quantity,
+  };
 }
+
 
 class AddressRequest{
   String customer_name = "";

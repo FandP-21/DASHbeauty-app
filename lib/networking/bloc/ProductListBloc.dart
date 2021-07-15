@@ -13,7 +13,7 @@ import '../Response.dart';
 class ProductListBloc {
   ProductListRepository _productListRepository;
 
-  //get profile
+  //get products
   StreamController _productListBlocController;
   StreamSink<Response<ListProductModel>> get productListDataSink =>
       _productListBlocController.sink;
@@ -45,6 +45,24 @@ class ProductListBloc {
     return null;
   }
 
+
+  getCategoryProduct(ProductRequest productRequest, String id) async {
+    productListDataSink.add(Response.loading('get product category wise'));
+    try {
+      ListProductModel loginData = await _productListRepository.getCategoryProduct(productRequest,id);
+      print(loginData);
+
+      // isLoggedIn = true;
+      //print(prefs.getString(Constants.FIRSTNAME));
+
+      productListDataSink.add(Response.completed(loginData));
+    } catch (e) {
+      productListDataSink.add(Response.error(e.toString()));
+      //isLoggedIn = false;
+      print(e);
+    }
+    return null;
+  }
 
   dispose() {
     _productListBlocController.close();

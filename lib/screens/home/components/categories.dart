@@ -6,6 +6,7 @@ import 'package:shop_app/networking/bloc/HomeBloc.dart';
 import 'package:shop_app/constants.dart' as Constants;
 
 import '../../../size_config.dart';
+import 'category_product_screen.dart';
 
 class Categories extends StatefulWidget {
   @override
@@ -15,8 +16,7 @@ class Categories extends StatefulWidget {
 class _CategoriesState extends State<Categories> {
   HomeBloc _bloc;
   CategoryResponseModel _categoryResponseModel;
-  int _limit = 10,
-      _pageNo = 1;
+  int _limit = 10, _pageNo = 1;
 
   @override
   void initState() {
@@ -55,23 +55,31 @@ class _CategoriesState extends State<Categories> {
     SizeConfig().init(context);
 
     return Padding(
-      padding: EdgeInsets.all(getProportionateScreenWidth(20)),
+      padding: EdgeInsets.all(getProportionateScreenWidth(10)),
       child: Container(
-        height: 200,
-        child:
-          ListView.builder(
-              shrinkWrap: true,
-              scrollDirection: Axis.horizontal,
-              itemCount: _categoryResponseModel.data.length,
-              itemBuilder:  (BuildContext context,
-              int index) {
-                if (_categoryResponseModel.data[index].isActive)
-                  return  CategoryCard(categoryData: _categoryResponseModel.data[index]);
+        height: 120,
+        child: ListView.builder(
+          shrinkWrap: true,
+          scrollDirection: Axis.horizontal,
+          itemCount: _categoryResponseModel.data.length,
+          itemBuilder: (BuildContext context, int index) {
+            if (_categoryResponseModel.data[index].isActive)
+              return Padding(
+                padding: EdgeInsets.only(right: 10),
+                child: InkWell(
+                    onTap: () {
+                      Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) => CategoryProductScreen(
+                              _categoryResponseModel.data[index])));
+                    },
+                    child: CategoryCard(
+                        categoryData: _categoryResponseModel.data[index])),
+              );
 
-                return SizedBox.shrink();
-              },
-             ),
-          /*...List.generate(
+            return Container();
+          },
+        ),
+        /*...List.generate(
 
             _categoryResponseModel.data.length,
                 (index) {
@@ -82,8 +90,7 @@ class _CategoriesState extends State<Categories> {
             },
 
           ),*/
-          //SizedBox(width: getProportionateScreenWidth(20)),
-
+        //SizedBox(width: getProportionateScreenWidth(20)),
       ),
     );
   }
@@ -104,11 +111,11 @@ class CategoryCard extends StatelessWidget {
     return GestureDetector(
       onTap: press,
       child: SizedBox(
-        width: getProportionateScreenWidth(55),
+        width: getProportionateScreenWidth(70),
         child: Column(
           children: [
             Container(
-              padding: EdgeInsets.all(getProportionateScreenWidth(15)),
+              padding: EdgeInsets.all(getProportionateScreenWidth(10)),
               height: getProportionateScreenWidth(55),
               width: getProportionateScreenWidth(55),
               decoration: BoxDecoration(
@@ -118,7 +125,8 @@ class CategoryCard extends StatelessWidget {
               child: Image.network(categoryData.image),
             ),
             SizedBox(height: 5),
-            Text(categoryData.name, textAlign: TextAlign.center)
+            Flexible(
+                child: Text(categoryData.name, textAlign: TextAlign.center))
           ],
         ),
       ),

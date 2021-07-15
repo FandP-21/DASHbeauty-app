@@ -122,7 +122,7 @@ class ApiProvider{
     return responseJson;
   }
 
-  Future<dynamic> postWithToken(String url, var body) async {
+  Future<dynamic> postWithToken(String url, {var body}) async {
     var responseJson;
     try {
       var token = await getAuthToken();

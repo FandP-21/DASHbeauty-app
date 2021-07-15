@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/components/product_card.dart';
+import 'package:shop_app/models/CommonRequest.dart';
 import 'package:shop_app/models/ListProductModel.dart';
 import 'package:shop_app/models/Product.dart';
+import 'package:shop_app/models/list_favourite_product_model.dart';
 import 'package:shop_app/networking/Response.dart';
+import 'package:shop_app/networking/bloc/FavouriteBloc.dart';
 import 'package:shop_app/networking/bloc/ProductListBloc.dart';
 import 'package:shop_app/screens/products/components/products_header.dart';
 import 'package:shop_app/constants.dart' as Constants;
@@ -14,19 +17,19 @@ class Body extends StatefulWidget {
 }
 
 class _BodyState extends State<Body> {
-  ProductListBloc _bloc;
-  ListProductModel _listProductModel;
+  FavouriteBloc _bloc;
+  ListFavoriteProductsModel _listFavModel;
   int _limit = 10, _pageNo = 1;
 
   @override
   void initState() {
     super.initState();
 
-    _bloc = ProductListBloc();
-    _bloc.getStoreProduct(
-        ProductRequest(limit: "$_limit", page_no: "$_pageNo", search: ""));
+    _bloc = FavouriteBloc();
+    _bloc.getFavourite(
+        CommonRequest(limit: "$_limit", page_no: "$_pageNo", search: ""));
 
-    _bloc.productListStream.listen((event) {
+    _bloc.getFavStream.listen((event) {
       setState(() {
         switch (event.status) {
           case Status.LOADING:
@@ -34,7 +37,7 @@ class _BodyState extends State<Body> {
             break;
           case Status.COMPLETED:
             Constants.stopLoader(context);
-            _listProductModel = event.data;
+            _listFavModel = event.data;
             break;
           case Status.ERROR:
             print(event.message);
@@ -49,34 +52,54 @@ class _BodyState extends State<Body> {
       });
     });
   }
+
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
-     // padding: EdgeInsets.symmetric(vertical: 20),
+      // padding: EdgeInsets.symmetric(vertical: 20),
       child: Column(
-
         children: [
           SizedBox(height: getProportionateScreenHeight(20)),
           ProductsHeader(),
           SizedBox(height: getProportionateScreenHeight(40)),
-          Wrap(
+          _listFavModel != null?GridView.count(
+            shrinkWrap: true,
+            crossAxisCount: 2,
+            physics: ScrollPhysics(),
+            children: [
+              if (_listFavModel != null && _listFavModel.data != null)
+                for (FavDatum data in _listFavModel.data)
+                  if (data.product.isActive)
+                    Padding(
+                      padding: const EdgeInsets.only(left: 30,right: 30),
+                      child: ProductCard(
+                        product: null,
+                        favProduct: data,
+                      ),
+                    )
+            ],
+          ): Center(
+            child: Text("No Saved Product"),
+          ),
+          /* Wrap(
             //spacing: 40,
             spacing: 30,
             runSpacing: 40,
             alignment: WrapAlignment.spaceBetween,
             children: [
+
               ...List.generate(
-                _listProductModel.data.length,
+                _listFavModel.data.length,
                     (index) {
-                  if (_listProductModel.data[index].isActive)
-                    return ProductCard(product: _listProductModel.data[index]);
+                  if (_listFavModel.data[index] != null)
+                    return ProductCard(product: _listFavModel.data[index]);
 
                   return SizedBox.shrink(); // here by default width and height is 0
                 },
               ),
               SizedBox(width: getProportionateScreenWidth(20)),
             ],
-          ),
+          ),*/
         ],
       ),
     );

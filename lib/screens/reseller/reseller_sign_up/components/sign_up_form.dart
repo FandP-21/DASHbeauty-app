@@ -238,7 +238,7 @@ class _ResellerSignUpFormState extends State<ResellerSignUpForm> {
         password.isNotEmpty) {
       var user = RegisterRequest(
           signupVia: "mobile",
-          roleId: 3,
+          roleId: 2,
           firstName: "Jon",
           lastName: "Doe",
           email: email,

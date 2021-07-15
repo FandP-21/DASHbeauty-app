@@ -4,6 +4,7 @@ import 'package:shop_app/constants.dart' as Constants;
 import 'package:shop_app/models/logout_model.dart';
 import 'package:shop_app/networking/Response.dart';
 import 'package:shop_app/networking/bloc/signin_bloc.dart';
+import 'package:shop_app/screens/my_orders/my_order_screen.dart';
 import 'package:shop_app/screens/profile/change_password_screen.dart';
 import 'package:shop_app/screens/profile/change_storeID_screen.dart';
 import 'package:shop_app/screens/sign_in/sign_in_screen.dart';
@@ -80,11 +81,13 @@ class _BodyState extends State<Body> {
               Navigator.of(context).push(MaterialPageRoute(builder: (context) => ChangePassword()));
             },
           ),
-          /*ProfileMenu(
-            text: "Help Center",
+          ProfileMenu(
+            text: "My Orders",
             icon: "assets/icons/Question mark.svg",
-            press: () {},
-          ),*/
+            press: () {
+              Navigator.of(context).push(MaterialPageRoute(builder: (context) => MyOrderScreen()));
+            },
+          ),
           ProfileMenu(
             text: "Payments",
             icon: "assets/icons/Log out.svg",

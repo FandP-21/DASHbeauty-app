@@ -2,6 +2,7 @@ import 'dart:async';
 import 'package:shop_app/models/AllUserResponseModel.dart';
 import 'package:shop_app/models/CommonRequest.dart';
 import 'package:shop_app/models/UserResponseModel.dart';
+import 'package:shop_app/models/list_favourite_product_model.dart';
 import 'package:shop_app/networking/repository/Repository.dart';
 
 import '../Response.dart';
@@ -11,29 +12,29 @@ class FavouriteBloc{
 
   //get favourite by user
   StreamController _getFavBlocController;
-  StreamSink<Response<AllUserResponseModel>> get getFavDataSink =>
+  StreamSink<Response<ListFavoriteProductsModel>> get getFavDataSink =>
       _getFavBlocController.sink;
-  Stream<Response<AllUserResponseModel>> get getFavStream =>
+  Stream<Response<ListFavoriteProductsModel>> get getFavStream =>
       _getFavBlocController.stream;
 
-  //create user
+  //create favourite
   StreamController _favCreateController;
-  StreamSink<Response<UserResponseModel>> get addFavDataSink =>
+  StreamSink<Response<FavProduct>> get addFavDataSink =>
       _favCreateController.sink;
-  Stream<Response<UserResponseModel>> get addFavStream =>
+  Stream<Response<FavProduct>> get addFavStream =>
       _favCreateController.stream;
 
   //delete user
   StreamController _removeFavController;
-  StreamSink<Response<UserResponseModel>> get removeFavDataSink =>
+  StreamSink<Response<FavProduct>> get removeFavDataSink =>
       _removeFavController.sink;
-  Stream<Response<UserResponseModel>> get removeFavStream =>
+  Stream<Response<FavProduct>> get removeFavStream =>
       _removeFavController.stream;
 
   FavouriteBloc() {
-    _getFavBlocController = StreamController<Response<AllUserResponseModel>>();
-    _favCreateController = StreamController<Response<UserResponseModel>>();
-    _removeFavController = StreamController<Response<UserResponseModel>>();
+    _getFavBlocController = StreamController<Response<ListFavoriteProductsModel>>();
+    _favCreateController = StreamController<Response<FavProduct>>();
+    _removeFavController = StreamController<Response<FavProduct>>();
 
     _favouriteRepository = FavouriteRepository();
   }
@@ -42,7 +43,7 @@ class FavouriteBloc{
 
     getFavDataSink.add(Response.loading('get users'));
     try {
-      AllUserResponseModel ordersResponseData =
+      ListFavoriteProductsModel ordersResponseData =
       await _favouriteRepository.getFavouriteByUser(commonRequest);
       print(ordersResponseData);
 
@@ -60,11 +61,11 @@ class FavouriteBloc{
 
     addFavDataSink.add(Response.loading('add to favourite'));
     try {
-      UserResponseModel ordersResponseData =
+      FavProduct favProductData =
       await _favouriteRepository.addToFavourite(productId);
-      print(ordersResponseData);
+      print(favProductData);
 
-      addFavDataSink.add(Response.completed(ordersResponseData));
+      addFavDataSink.add(Response.completed(favProductData));
     } catch (e) {
       addFavDataSink.add(Response.error(e.toString()));
       print(e);
@@ -78,7 +79,7 @@ class FavouriteBloc{
 
     removeFavDataSink.add(Response.loading('remove from favourite'));
     try {
-      UserResponseModel ordersResponseData =
+      FavProduct ordersResponseData =
       await _favouriteRepository.removeFromFavourite(userId);
       print(ordersResponseData);
 

@@ -9,6 +9,7 @@ import '../Response.dart';
 class OrderBloc {
   OrderRepository _orderRepository;
 
+/*
   //get all order by user id
   StreamController _orederBlocController;
 
@@ -17,6 +18,7 @@ class OrderBloc {
 
   Stream<Response<AllUserResponseModel>> get orderStream =>
       _orederBlocController.stream;
+*/
 
 
   //get all orders for listing in order screen
@@ -30,13 +32,13 @@ class OrderBloc {
 
 
   OrderBloc() {
-    _orederBlocController = StreamController<Response<AllUserResponseModel>>();
+    //_orederBlocController = StreamController<Response<AllUserResponseModel>>();
     _allOrederBlocController = StreamController<Response<AllUserResponseModel>>();
 
     _orderRepository = OrderRepository();
   }
 
-  getOrderByUsersId(String userId, String limit,String page_no) async {
+  /*getOrderByUsersId(String userId, String limit,String page_no) async {
     orderDataSink.add(Response.loading('get order by users id'));
     try {
       AllUserResponseModel ordersResponseData =
@@ -49,7 +51,7 @@ class OrderBloc {
       print(e);
     }
     return null;
-  }
+  }*/
 
 
   getAllOrders(UserRequest request) async {
@@ -59,9 +61,9 @@ class OrderBloc {
           await _orderRepository.getAllOrders(request);
       print(ordersResponseData);
 
-      orderDataSink.add(Response.completed(ordersResponseData));
+      allOrderDataSink.add(Response.completed(ordersResponseData));
     } catch (e) {
-      orderDataSink.add(Response.error(e.toString()));
+      allOrderDataSink.add(Response.error(e.toString()));
       print(e);
     }
     return null;
