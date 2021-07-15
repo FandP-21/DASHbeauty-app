@@ -85,5 +85,7 @@ class _BodyState extends State<Body> {
     );
   }
 
-  void navigateToTab(BuildContext context) {}
+  void navigateToTab(BuildContext context) {
+
+  }
 }

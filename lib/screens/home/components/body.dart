@@ -22,8 +22,7 @@ class _BodyState extends State<Body> {
         child: Column(
           children: [
             SizedBox(height: getProportionateScreenHeight(20)),
-            HomeHeader(),
-            SizedBox(height: getProportionateScreenWidth(10)),
+
             Categories(),
             SizedBox(height: getProportionateScreenWidth(10)),
             AllProducts(),
