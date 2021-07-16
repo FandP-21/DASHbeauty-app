@@ -142,14 +142,14 @@ class _BodyState extends State<Body> {
   }
 
   void validateInputs(){
-    if (_quantity == null) {
+    if (_quantityController.text.isEmpty) {
 
       var user = CartRequest(productId: widget.product.id, quantity: "1");
       _bloc.addToCart(user);
     }
     else {
-      var user = CartRequest(productId: widget.product.id, quantity: _quantity);
-      print("xxxxxxxxxxxxxxxxxxxxxxxxxxx"+_quantity);
+      var user = CartRequest(productId: widget.product.id, quantity: _quantityController.text.toString());
+      //print("xxxxxxxxxxxxxxxxxxxxxxxxxxx"+_quantity);
       _bloc.addToCart(user);
     }
   }

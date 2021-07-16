@@ -1,14 +1,42 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:shop_app/components/default_button.dart';
+import 'package:shop_app/models/list_cart_model.dart';
 
 import '../../../constants.dart';
 import '../../../size_config.dart';
 
-class CheckoutCard extends StatelessWidget {
-  const CheckoutCard({
+class CheckoutCard extends StatefulWidget {
+  List<Datum> data;
+
+  CheckoutCard(
+    this.data, {
     Key key,
   }) : super(key: key);
+
+  @override
+  _CheckoutCardState createState() => _CheckoutCardState();
+}
+
+class _CheckoutCardState extends State<CheckoutCard> {
+  double sum = 0;
+
+  double amount;
+
+  @override
+  void initState() {
+    setState(() {
+      for (Datum e in widget.data) {
+        // for(amount in e.product.price)
+        sum +=
+            double.parse(e.product.price) * double.parse(e.quantity.toString());
+      }
+    });
+
+    print(sum.toStringAsFixed(2));
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -68,7 +96,7 @@ class CheckoutCard extends StatelessWidget {
                     text: "Total:\n",
                     children: [
                       TextSpan(
-                        text: "\$337.15",
+                        text: sum.toStringAsFixed(2),
                         style: TextStyle(fontSize: 16, color: Colors.black),
                       ),
                     ],
